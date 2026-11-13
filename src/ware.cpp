@@ -25,7 +25,7 @@ bool fitsInKiln(const std::vector<Ware>& stack, const Ware& next) {
     for (const Ware& ware : stack){
         sm += ware.height_cm;
     }
-    sm += 2 * (stack.size());
+    sm += kShelfCm * stack.size();
     if (sm + next.height_cm<= kKilnHeightCm){
         return true;
     }

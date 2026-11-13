@@ -24,18 +24,13 @@ std::vector<Ware> Kiln::stack() const {
 }
 
 void Kiln::open() {
-    // Повторное открытие и открытие на поливном конусе — KilnError.
     if (door_ == Door::Open ){
         throw KilnError("Дверца уже открыта");
     }
     if (cone_ == Cone::Glaze){
         throw KilnError("Включен поливной конус");
-
     }
-
-    
     door_ = Door::Open;
-    
 }
 
 void Kiln::close() {
@@ -43,11 +38,9 @@ void Kiln::close() {
         throw KilnError("Дверца уже закрыта");
     }
     door_ = Door::Closed;
-    
 }
 
 void Kiln::fire() {
-    // Отказ не тратит такт и не поднимает конус наполовину.
     if (door_ == Door::Open){
         throw KilnError("Дверца еще открыта");
     }
@@ -69,14 +62,12 @@ void Kiln::fire() {
     }
     else {
         cone_ = Cone::Glaze;
-
         for (std::size_t i = 0; i < stack_.size(); i++) {
             if (stack_[i].program == Program::Glaze) {
                 reachedGlaze_[i] = true;
             }
         }
     }
-
     stokes_ += 1;
 }
 
@@ -92,14 +83,12 @@ void Kiln::cool() {
                 throw KilnError("Одно из изделий не было в Glaze конусе");
             }
         }
-    
     }
     if (cone_ == Cone::Glaze){
         cone_ = Cone::Bisque;
     }
     else{
         cone_ = Cone::Cold;
-    
     }
     stokes_ +=1;
 }
@@ -128,14 +117,13 @@ void Kiln::load(const Ware&ware) {
     for (const Ware& obj: stack_){
         if (obj.kind == WareKind::Sagger){
             throw KilnError("Горн занят Sagger-ом");
-        }  
+        }
     }
     if (fitsInKiln(stack_, ware) == false){
         throw KilnError("Издели не помещается в горн");
     }
     stack_.push_back(ware);
     reachedGlaze_.push_back(false);
-
 }
 
 void Kiln::unload(const std::string& mark) {
@@ -153,7 +141,6 @@ void Kiln::unload(const std::string& mark) {
     }
     stack_.pop_back();
     reachedGlaze_.pop_back();
-
 }
 
 }  // namespace skopin

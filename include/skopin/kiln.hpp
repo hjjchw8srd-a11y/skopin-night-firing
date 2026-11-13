@@ -66,7 +66,7 @@ public:
 private:
     Cone cone_ = Cone::Cold;
     Door door_ = Door::Closed;
-    int stokes_= 0;
+    int stokes_ = 0;
     std::vector<Ware> stack_;
     std::vector<bool> reachedGlaze_;
     // Публичные сигнатуры выше менять нельзя: тесты собираются против них.
